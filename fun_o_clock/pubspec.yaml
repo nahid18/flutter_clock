@@ -1,0 +1,34 @@
+name: fun_o_clock
+description: Flutter clock with playful numbers.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_clock_helper:
+    path: ../flutter_clock_helper
+  cupertino_icons: ^0.1.2
+  flutter_svg: ^0.16.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/COLON.svg
+    - assets/ZERO.svg
+    - assets/ONE.svg
+    - assets/TWO.svg
+    - assets/THREE.svg
+    - assets/FOUR.svg
+    - assets/FIVE.svg
+    - assets/SIX.svg
+    - assets/SEVEN.svg
+    - assets/EIGHT.svg
+    - assets/NINE.svg
