@@ -25,7 +25,7 @@ final _lightTheme = {
 };
 
 final _darkTheme = {
-  _Element.background: Color(0xFF090a2e),
+  _Element.background: Color(0xFF2F2D52),
   // _Element.text: Colors.white,
   // _Element.shadow: Colors.pink,
 };
@@ -43,9 +43,7 @@ class _DigitalClockState extends State<DigitalClock> {
   Timer _timer;
   Map store = Map();
 
-  bool isHour0Same = true,
-      isHour1Same = true,
-      isMinute0Same = true;
+  bool isHour0Same = true, isHour1Same = true, isMinute0Same = true;
 
   @override
   void initState() {
@@ -84,34 +82,42 @@ class _DigitalClockState extends State<DigitalClock> {
       var _minute = DateFormat('mm').format(_dateTime);
       // var _second = DateFormat('ss').format(_dateTime);
 
-      if (store.isNotEmpty) {      
-        // Check if new hour[0] and hour[1] value is same as before,
-        // if hour value same then, return isHourSame bool == true
-        // else return false and replace old value with current value
-
-        if (store['hour_0'] != _hour[0]) {isHour0Same = false; store['hour_0'] = _hour[0];} 
-        else {isHour0Same = true;}
-        if (store['hour_1'] != _hour[1]) {isHour1Same = false; store['hour_1'] = _hour[1];} 
-        else {isHour1Same = true;}
+      if (store.isNotEmpty) {
+        // Check old value with the new value and then replace with it
+        if (store['hour_0'] != _hour[0]) {
+          isHour0Same = false;
+          store['hour_0'] = _hour[0];
+        } else {
+          isHour0Same = true;
+        }
+        if (store['hour_1'] != _hour[1]) {
+          isHour1Same = false;
+          store['hour_1'] = _hour[1];
+        } else {
+          isHour1Same = true;
+        }
 
         // Same Process (explained above) for Minutes
-        if (store['minute_0'] != _minute[0]) {isMinute0Same = false; store['minute_0'] = _minute[0];} 
-        else {isMinute0Same = true;}
+        if (store['minute_0'] != _minute[0]) {
+          isMinute0Same = false;
+          store['minute_0'] = _minute[0];
+        } else {
+          isMinute0Same = true;
+        }
         store['minute_1'] = _minute[1];
-
       } else {
         store['hour_0'] = _hour[0];
         store['hour_1'] = _hour[1];
         store['minute_0'] = _minute[0];
         store['minute_1'] = _minute[1];
       }
-      
+
       // Update once per minute. If you want to update every second, use the
       // following code.
       _timer = Timer(
         Duration(minutes: 1) -
-        Duration(seconds: _dateTime.second) -
-        Duration(milliseconds: _dateTime.millisecond),
+            Duration(seconds: _dateTime.second) -
+            Duration(milliseconds: _dateTime.millisecond),
         _updateTime,
       );
     });
@@ -124,7 +130,8 @@ class _DigitalClockState extends State<DigitalClock> {
         : _darkTheme;
 
     // Time
-    final hour = DateFormat(widget.model.is24HourFormat ? 'HH' : 'hh').format(_dateTime);
+    final hour =
+        DateFormat(widget.model.is24HourFormat ? 'HH' : 'hh').format(_dateTime);
     final minute = DateFormat('mm').format(_dateTime);
     // final second = DateFormat('ss').format(_dateTime);
 
@@ -133,26 +140,23 @@ class _DigitalClockState extends State<DigitalClock> {
     final day = DateFormat('dd').format(_dateTime);
     final year = DateFormat('yyyy').format(_dateTime);
 
-
     // Responsive Widths for SVGs, Colon and Containers
-    final width = MediaQuery.of(context).size.width; 
-    final height = MediaQuery.of(context).size.height;
-    final svgWidth = width * 0.1;
+    final mediaWidth = MediaQuery.of(context).size.width;
+    final mediaHeight = MediaQuery.of(context).size.height;
+    final svgWidth = mediaWidth * 0.1;
     final colonWidth = svgWidth * 0.9;
 
-
     // Responsive Sizes for FontSize and Transition Height
-    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-    final mediaWidth = MediaQuery.of(context).size.width;
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     final fontSize = isPortrait ? mediaWidth / 6 : mediaWidth / 9;
     final transitionHeight = fontSize * 10 / 8.5;
-
 
     // Colon Widget
     final colonWidget = Container(
       width: colonWidth,
       child: AspectRatio(
-        aspectRatio: 1/1.1,
+        aspectRatio: 1 / 1.1,
         child: SvgPicture.asset(
           'assets/COLON.svg',
           alignment: Alignment.center,
@@ -162,10 +166,10 @@ class _DigitalClockState extends State<DigitalClock> {
     );
 
     return GestureDetector(
-      onTap: () {}, // Disables weird on tap size increase behavior
+      onTap: () {}, // Disables weird clock area on tap size increase behavior
       child: Container(
-        width: width,
-        height: height,
+        width: mediaWidth,
+        height: mediaHeight,
         color: colors[_Element.background],
         child: Center(
           child: Row(
@@ -173,9 +177,9 @@ class _DigitalClockState extends State<DigitalClock> {
             children: <Widget>[
               isHour0Same
                   ? GetSVG(
-                    width: svgWidth,
-                    number: int.parse(hour[0]),
-                  )
+                      width: svgWidth,
+                      number: int.parse(hour[0]),
+                    )
                   : RotateNumber(
                       svgWidth: svgWidth,
                       rotateNumber: hour[0],
@@ -183,9 +187,9 @@ class _DigitalClockState extends State<DigitalClock> {
                     ),
               isHour1Same
                   ? GetSVG(
-                    width: svgWidth,
-                    number: int.parse(hour[1]),
-                  )
+                      width: svgWidth,
+                      number: int.parse(hour[1]),
+                    )
                   : RotateNumber(
                       svgWidth: svgWidth,
                       rotateNumber: hour[1],
@@ -194,9 +198,9 @@ class _DigitalClockState extends State<DigitalClock> {
               colonWidget,
               isMinute0Same
                   ? GetSVG(
-                    width: svgWidth,
-                    number: int.parse(minute[0]),
-                  )
+                      width: svgWidth,
+                      number: int.parse(minute[0]),
+                    )
                   : RotateNumber(
                       svgWidth: svgWidth,
                       rotateNumber: minute[0],

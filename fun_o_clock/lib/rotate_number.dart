@@ -51,9 +51,9 @@ class _RotateNumberState extends State<RotateNumber>
       height: _transitionHeight,
       child: !_controller.isAnimating
           ? GetSVG(
-            width: _svgWidth,
-            number: int.parse(_text),
-          )
+              width: _svgWidth,
+              number: int.parse(_text),
+            )
           : AnimatedBuilder(
               animation: _controller,
               builder: (BuildContext context, Widget child) {
@@ -71,16 +71,17 @@ class _RotateNumberState extends State<RotateNumber>
             ),
     );
   }
+  
 
   void _nextAnimation() {
     if (_controller != null) _controller.dispose();
-    
+
     setState(() {
       _dateTime = DateTime.now();
       _timer = Timer(
         Duration(minutes: 1) -
-        Duration(seconds: _dateTime.second) -
-        Duration(milliseconds: _dateTime.millisecond),
+            Duration(seconds: _dateTime.second) -
+            Duration(milliseconds: _dateTime.millisecond),
         _nextAnimation,
       );
     });

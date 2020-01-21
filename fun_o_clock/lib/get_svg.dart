@@ -15,7 +15,6 @@ enum GetSVGEnum {
   NINE,
 }
 
-
 class GetSVG extends StatefulWidget {
   final double width;
   final int number;
@@ -41,7 +40,7 @@ class GetSVGState extends State<GetSVG> {
     return Container(
       width: _width,
       child: AspectRatio(
-        aspectRatio: 1/1.15,
+        aspectRatio: 1 / 1.15,
         child: SvgPicture.asset(
           _getSVGFile(_getEnumNumberEquivalent(_number)),
           alignment: Alignment.center,
