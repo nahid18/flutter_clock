@@ -14,20 +14,14 @@ import 'rotate_number.dart';
 
 enum _Element {
   background,
-  // text,
-  // shadow,
 }
 
 final _lightTheme = {
   _Element.background: Colors.white,
-  // _Element.text: Colors.pink,
-  // _Element.shadow: Colors.pink[900],
 };
 
 final _darkTheme = {
-  _Element.background: Color(0xFF2F2D52),
-  // _Element.text: Colors.white,
-  // _Element.shadow: Colors.pink,
+  _Element.background: Color(0xFF08061E),
 };
 
 class DigitalClock extends StatefulWidget {
